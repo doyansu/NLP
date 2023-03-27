@@ -1,26 +1,20 @@
 import pandas as pd
 
-import re
-import string
-import nltk
-from nltk.corpus import stopwords
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-#nltk.download('punkt')
-#stop_words = set(stopwords.words('english'))
-
-def PreProcessText(text):
+def PreProcessText(text : str):
+    # 轉成小寫
     text = text.lower()
-    # 處理後結果較差
-    # text = re.sub(r'https?://\S+|www\.\S+', '', text)
-    # text = re.sub(r'<.*?>', '', text)
-    # text = re.sub(r'\d+', '', text)
-    # text = text.translate(str.maketrans('', '', string.punctuation))
-    # text = ' '.join(word for word in text.split() if word not in stop_words)
+    
+    # 將 not 後的字詞與 not 合併成新字詞 not_xxx
+    NEGATIVES = ['not', 'don\'t', 'doesn\'t', 'didn\'t']
+    for negative in NEGATIVES:
+        negative_plus_space = ' ' + negative + ' '
+        text = text.replace(negative_plus_space, ' not_')
+        
     return text
 
 # 顯示 (Accuracy, Precision, Recall, F1)
@@ -49,8 +43,6 @@ def Main():
     test_data = pd.read_csv('data/test_62k.txt', sep='\t', header=None, names=['label', 'text'])
     train_data['text'] = train_data['text'].map(PreProcessText)
     test_data['text'] = test_data['text'].map(PreProcessText)
-    print(train_data)
-    print(test_data)
 
     # Naive Bayes
     print("Naive Bayes Result:")
