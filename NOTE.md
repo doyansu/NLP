@@ -1,9 +1,15 @@
-# 需求套件
-- 在資料 hw 資料夾內安裝使用指令 
+# NOTE
+
+## 需求套件 requirements.txt 相關指令
+- 輸出已安裝套件 
+```command
+pip3 freeze > requirements.txt
+```
+- 在資料夾內安裝使用指令 
 ```command
 pip3 install -r requirements.txt
 ``` 
-- ps: 輸出已安裝套件 
+- 移除在requirements.txt的套件且都同意
 ```command
-pip3 freeze > requirements.txt
+pip uninstall -r requirements.txt -y
 ```
