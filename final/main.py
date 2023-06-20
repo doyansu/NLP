@@ -38,8 +38,8 @@ def text_preprocess(text):
     return text
 
 # remove url and @ from text
-# data['text'] = data['text'].apply(text_preprocess)
-# test_data['text'] = test_data['text'].apply(text_preprocess)
+data['text'] = data['text'].apply(text_preprocess)
+test_data['text'] = test_data['text'].apply(text_preprocess)
 
 # remove %20 from keyword
 data['keyword'] = data['keyword'].apply(keyword_preprocess)
